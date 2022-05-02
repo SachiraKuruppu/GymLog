@@ -39,6 +39,8 @@
 		520961BC281F269600F310DB /* Workouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961AD281F265C00F310DB /* Workouts+CoreDataProperties.swift */; };
 		520961BD281F269600F310DB /* Exercises+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */; };
 		52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */; };
+		52E6C5FF281FCEBE00DFED1C /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */; };
+		52E6C603281FDD3300DFED1C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E6C602281FDD3300DFED1C /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,9 @@
 		520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataClass.swift"; sourceTree = "<group>"; };
 		520961B1281F265C00F310DB /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSubView.swift; sourceTree = "<group>"; };
+		52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
+		52E6C600281FDD3300DFED1C /* GymLog WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GymLog WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		52E6C602281FDD3300DFED1C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52E6C603281FDD3300DFED1C /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +150,7 @@
 				5209614C281DD14000F310DB /* GymLog WatchKit App */,
 				52096157281DD14100F310DB /* GymLog WatchKit Extension */,
 				5209613B281DD13F00F310DB /* Products */,
+				52E6C601281FDD3300DFED1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +197,7 @@
 		52096157281DD14100F310DB /* GymLog WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				52E6C600281FDD3300DFED1C /* GymLog WatchKit Extension.entitlements */,
 				520961A1281DF49C00F310DB /* Services */,
 				5209619A281DF10200F310DB /* ViewModels */,
 				5209619B281DF10C00F310DB /* Views */,
@@ -292,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				520961A2281DF4AE00F310DB /* PhoneService.swift */,
+				52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -302,6 +311,14 @@
 				52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		52E6C601281FDD3300DFED1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52E6C602281FDD3300DFED1C /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +480,7 @@
 				520961AB281E1CAF00F310DB /* SelectedWorkoutViewModel.swift in Sources */,
 				5209615B281DD14100F310DB /* GymLogApp.swift in Sources */,
 				520961A0281DF36500F310DB /* WorkoutsView.swift in Sources */,
+				52E6C5FF281FCEBE00DFED1C /* WorkoutService.swift in Sources */,
 				520961A3281DF4AE00F310DB /* PhoneService.swift in Sources */,
 				5209615D281DD14100F310DB /* ComplicationController.swift in Sources */,
 				5209619E281DF1F200F310DB /* WorkoutsViewModel.swift in Sources */,
@@ -599,6 +617,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "GymLog WatchKit Extension/GymLog WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GymLog WatchKit Extension/Preview Content\"";
@@ -608,6 +627,8 @@
 				INFOPLIST_FILE = "GymLog WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "GymLog WatchKit Extension";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = GymLog_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Need access to health to read/write workouts";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Need access to health to read/write workouts";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -631,6 +652,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "GymLog WatchKit Extension/GymLog WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GymLog WatchKit Extension/Preview Content\"";
@@ -640,6 +662,8 @@
 				INFOPLIST_FILE = "GymLog WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "GymLog WatchKit Extension";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = GymLog_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Need access to health to read/write workouts";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Need access to health to read/write workouts";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

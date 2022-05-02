@@ -43,6 +43,7 @@ struct WorkoutsView: View {
         }
         .onAppear {
             viewModel.refreshWorkoutsList()
+            WorkoutService.shared.requestHealthKitAccess()
         }
     }
 }
