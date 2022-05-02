@@ -9,13 +9,14 @@ import Foundation
 import Combine
 
 final class SelectedWorkoutViewModel: ObservableObject {
-    private var cancellable: AnyCancellable?
+//    private var cancellable: AnyCancellable?
     
     enum Tab {
         case WORKOUT_VIEW
         case EXERCISE_VIEW
     }
     
+    @Published var isLoading: Bool = false
     @Published var selectedTab: Tab = Tab.WORKOUT_VIEW
     
     @Published var name: String = "Fake Workout"
@@ -26,22 +27,17 @@ final class SelectedWorkoutViewModel: ObservableObject {
     @Published var weight: Float = 0
     @Published var reps: Int = 1
     
-    init() {
-        cancellable = PhoneService.shared.$workout
-            .receive(on: DispatchQueue.main)
-            .sink { receiveValue in
-                guard let workout: WorkoutItem = receiveValue else {
-                    return
-                }
-                
+    func requestDetails(workoutIndex: Int) {
+        isLoading = true
+        
+        PhoneService.shared.requestWorkout(index: workoutIndex) { workout in
+            DispatchQueue.main.async {
                 self.name = workout.name
                 self.restInSeconds = workout.restInSeconds
                 self.exercises = workout.exercises
+                self.isLoading = false
             }
-    }
-    
-    func requestDetails(workoutIndex: Int) {
-        PhoneService.shared.requestWorkout(index: workoutIndex)
+        }
     }
     
     func selectExercise(index: Int) {

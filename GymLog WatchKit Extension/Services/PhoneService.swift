@@ -12,8 +12,6 @@ final class PhoneService: NSObject, WCSessionDelegate, ObservableObject {
     static let shared = PhoneService()
     
     @Published var status: String = ""
-    @Published var workoutNames: [String] = []
-    @Published var workout: WorkoutItem?
     
     override private init() {
         super.init()
@@ -45,18 +43,18 @@ final class PhoneService: NSObject, WCSessionDelegate, ObservableObject {
         }
     }
     
-    func requestWorkoutsList() {
+    func requestWorkoutsList(completion: @escaping ([String]) -> Void) {
         WCSession.default.sendMessage(["request": "list"]) { receivedData in
             guard let workoutNames = receivedData["workout_names"] as? [String] else {
                 print("Workout names not received")
                 return
             }
             
-            self.workoutNames = workoutNames
+            completion(workoutNames)
         }
     }
     
-    func requestWorkout(index: Int) {
+    func requestWorkout(index: Int, completion: @escaping (WorkoutItem) -> Void) {
         WCSession.default.sendMessage(["request": "selected", "index": index]) { receivedData in
             guard let encodedWorkout = receivedData["workout"] as? [String: Any] else {
                 print("Workout info not received")
@@ -64,7 +62,7 @@ final class PhoneService: NSObject, WCSessionDelegate, ObservableObject {
             }
             
             let workout = WorkoutItem.decode(encodedWorkout: encodedWorkout)
-            self.workout = workout
+            completion(workout)
         }
     }
     

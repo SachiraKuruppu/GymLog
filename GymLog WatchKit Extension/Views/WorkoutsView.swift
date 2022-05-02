@@ -11,27 +11,34 @@ struct WorkoutsView: View {
     @StateObject private var viewModel = WorkoutsViewModel()
     
     var body: some View {
-        VStack {
-            Text(viewModel.reachabilityText)
-                .font(.footnote)
-            Spacer()
-            List {
-                
-                if viewModel.workouts.count > 0 {
-                    ForEach(0..<viewModel.workouts.count, id:\.self) { i in
-                        NavigationLink(destination: SelectedWorkoutView(workoutIndex: i)) {
-                            Text(viewModel.workouts[i])
+        ZStack {
+            VStack {
+                Text(viewModel.reachabilityText)
+                    .font(.footnote)
+                Spacer()
+                List {
+                    
+                    if viewModel.workouts.count > 0 {
+                        ForEach(0..<viewModel.workouts.count, id:\.self) { i in
+                            NavigationLink(destination: SelectedWorkoutView(workoutIndex: i)) {
+                                Text(viewModel.workouts[i])
+                            }
+                        }
+                    }
+                    else {
+                        NavigationLink(destination: SelectedWorkoutView(workoutIndex: 0)) {
+                            Text("No workouts found")
                         }
                     }
                 }
-                else {
-                    NavigationLink(destination: SelectedWorkoutView(workoutIndex: 0)) {
-                        Text("No workouts found")
-                    }
+                .refreshable {
+                    viewModel.refreshWorkoutsList()
                 }
             }
-            .refreshable {
-                viewModel.refreshWorkoutsList()
+            
+            if viewModel.isLoading {
+                ProgressView()
+                    .background(.black)
             }
         }
         .onAppear {

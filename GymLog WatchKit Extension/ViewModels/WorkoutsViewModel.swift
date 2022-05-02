@@ -10,10 +10,10 @@ import Combine
 
 final class WorkoutsViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
-    private var cancellable_2: AnyCancellable?
     
     @Published var reachabilityText: String = "Not Reachable"
     @Published var workouts: [String] = []
+    @Published var isLoading: Bool = false
     
     init() {
         cancellable = PhoneService.shared.$status
@@ -21,15 +21,16 @@ final class WorkoutsViewModel: ObservableObject {
             .sink { receiveValue in
                 self.reachabilityText = receiveValue
             }
-        
-        cancellable_2 = PhoneService.shared.$workoutNames
-            .receive(on: DispatchQueue.main)
-            .sink { receivedValue in
-                self.workouts = receivedValue
-            }
     }
     
     func refreshWorkoutsList() {
-        PhoneService.shared.requestWorkoutsList()
+        isLoading = true
+        
+        PhoneService.shared.requestWorkoutsList { workoutNames in
+            DispatchQueue.main.async {
+                self.workouts = workoutNames
+                self.isLoading = false
+            }
+        }
     }
 }

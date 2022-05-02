@@ -38,6 +38,7 @@
 		520961BB281F269600F310DB /* Workouts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961AC281F265C00F310DB /* Workouts+CoreDataClass.swift */; };
 		520961BC281F269600F310DB /* Workouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961AD281F265C00F310DB /* Workouts+CoreDataProperties.swift */; };
 		520961BD281F269600F310DB /* Exercises+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */; };
+		52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		520961AF281F265C00F310DB /* Weights+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weights+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataClass.swift"; sourceTree = "<group>"; };
 		520961B1281F265C00F310DB /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSubView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 		5209619B281DF10C00F310DB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				52E6C5FB281FA47000DFED1C /* SubViews */,
 				5209619F281DF36500F310DB /* WorkoutsView.swift */,
 				520961A6281E1C8A00F310DB /* SelectedWorkoutView.swift */,
 			);
@@ -291,6 +294,14 @@
 				520961A2281DF4AE00F310DB /* PhoneService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		52E6C5FB281FA47000DFED1C /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */,
 				520961A7281E1C8A00F310DB /* SelectedWorkoutView.swift in Sources */,
 				520961AB281E1CAF00F310DB /* SelectedWorkoutViewModel.swift in Sources */,
 				5209615B281DD14100F310DB /* GymLogApp.swift in Sources */,
