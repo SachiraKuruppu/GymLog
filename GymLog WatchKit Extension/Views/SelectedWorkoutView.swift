@@ -36,10 +36,21 @@ struct SelectedWorkoutView: View {
                         .background(viewModel.selectedExerciseIndx == i ? .blue : .black)
                     }
                     
-                    Button("Finish") {
+                    HStack {
+                        Button {
+                            viewModel.onEndPressed()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                        .tint(Color.red)
                         
+                        Button {
+                            viewModel.onPausePressed()
+                        } label: {
+                            Image(systemName: viewModel.isRunning ? "pause" : "play")
+                        }
+                        .tint(viewModel.isRunning ? Color.yellow : Color.green)
                     }
-                    .tint(Color.red)
                 }
                 .tabItem {
                     Text("List")
@@ -48,20 +59,34 @@ struct SelectedWorkoutView: View {
                 
                 // Tab 2: Selected exercise view
                 ScrollView {
-                    TimerSubView(elapsedTime: 3 * 60 + 15.4, showSubseconds: true)
+                    TimerSubView(
+                            elapsedTime: WorkoutService.shared.builder?.elapsedTime ?? 0,
+                            showSubseconds: true
+                        )
                         .font(.title3)
                     HStack {
-                        Text("000 kCal")
+                        Text(
+                            Measurement(value: viewModel.activeEnergy, unit: UnitEnergy.kilocalories)
+                                .formatted(
+                                    .measurement(
+                                        width: .abbreviated,
+                                        usage: .workout
+                                    )
+                                )
+                            )
                             .fontWeight(.bold)
                             .frame(width: 80, height: 30, alignment: .center)
                             .padding()
                             .foregroundColor(.pink)
                         
-                        Text("\(Image(systemName: "heart")) 000")
-                            .fontWeight(.bold)
+                        Label(
+                                viewModel.heartRate.formatted(.number.precision(.fractionLength(0))),
+                                systemImage: "heart"
+                            )
                             .frame(width: 80, height: 30, alignment: .center)
                             .padding()
                             .foregroundColor(.yellow)
+                            .font(.body.weight(.bold))
                     }
                     HStack {
                         Text("\(viewModel.weight, specifier: "%.2f") kg")
@@ -82,7 +107,7 @@ struct SelectedWorkoutView: View {
                     Button("Done") {
                         viewModel.markDone()
                     }
-                    .tint(Color.green)
+                    .tint(Color.blue)
                 }
                 .tag(SelectedWorkoutViewModel.Tab.EXERCISE_VIEW)
                 .tabItem {

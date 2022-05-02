@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class SelectedWorkoutViewModel: ObservableObject {
-//    private var cancellable: AnyCancellable?
+    private var cancellable: Set<AnyCancellable> = []
     
     enum Tab {
         case WORKOUT_VIEW
@@ -18,14 +18,44 @@ final class SelectedWorkoutViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var selectedTab: Tab = Tab.WORKOUT_VIEW
+    @Published var isRunning = false
     
     @Published var name: String = "Fake Workout"
     @Published var restInSeconds: Int = 60
     @Published var exercises: [ExerciseItem] = []
     
+    @Published var elapsedTime: Double = 0
+    @Published var heartRate: Double = 0
+    @Published var activeEnergy: Double = 0
+    
     @Published var selectedExerciseIndx: Int = 0
     @Published var weight: Float = 0
     @Published var reps: Int = 1
+    
+    init() {
+        WorkoutService.shared.$isRunning
+            .receive(on: DispatchQueue.main)
+            .sink { newVal in
+                self.isRunning = newVal
+            }
+            .store(in: &cancellable)
+        
+        WorkoutService.shared.$heartRate
+            .receive(on: DispatchQueue.main)
+            .sink { newVal in
+                self.heartRate = newVal
+            }
+            .store(in: &cancellable)
+        
+        WorkoutService.shared.$activeEnergy
+            .receive(on: DispatchQueue.main)
+            .sink { newVal in
+                self.activeEnergy = newVal
+            }
+            .store(in: &cancellable)
+        
+        WorkoutService.shared.startWorkout()
+    }
     
     func requestDetails(workoutIndex: Int) {
         isLoading = true
@@ -54,5 +84,19 @@ final class SelectedWorkoutViewModel: ObservableObject {
         if (selectedExerciseIndx + 1) < exercises.count {
             selectExercise(index: selectedExerciseIndx + 1)
         }
+    }
+    
+    func onPausePressed() {
+        if isRunning {
+            WorkoutService.shared.pause()
+        }
+        else {
+            WorkoutService.shared.resume()
+        }
+    }
+    
+    func onEndPressed() {
+        WorkoutService.shared.endWorkout()
+        // TODO: Pop this screen
     }
 }
