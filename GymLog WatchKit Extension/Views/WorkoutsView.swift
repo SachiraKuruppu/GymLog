@@ -1,0 +1,47 @@
+//
+//  WorkoutsView.swift
+//  GymLog WatchKit Extension
+//
+//  Created by Sachira Kuruppu on 1/05/22.
+//
+
+import SwiftUI
+
+struct WorkoutsView: View {
+    @StateObject private var viewModel = WorkoutsViewModel()
+    
+    var body: some View {
+        VStack {
+            Text(viewModel.reachabilityText)
+                .font(.footnote)
+            Spacer()
+            List {
+                
+                if viewModel.workouts.count > 0 {
+                    ForEach(0..<viewModel.workouts.count, id:\.self) { i in
+                        NavigationLink(destination: SelectedWorkoutView(workoutIndex: i)) {
+                            Text(viewModel.workouts[i])
+                        }
+                    }
+                }
+                else {
+                    NavigationLink(destination: SelectedWorkoutView(workoutIndex: 0)) {
+                        Text("No workouts found")
+                    }
+                }
+            }
+            .refreshable {
+                viewModel.refreshWorkoutsList()
+            }
+        }
+        .onAppear {
+            viewModel.refreshWorkoutsList()
+        }
+    }
+}
+
+struct WorkoutsView_Previews: PreviewProvider {
+    static var previews: some View {
+        WorkoutsView()
+    }
+}
