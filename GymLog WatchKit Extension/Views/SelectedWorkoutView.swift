@@ -27,6 +27,7 @@ struct SelectedWorkoutView: View {
                     ForEach(0..<viewModel.exercises.count, id:\.self) { i in
                         Button {
                             viewModel.selectExercise(index: i)
+                            viewModel.selectedTab = .EXERCISE_VIEW
                         } label: {
                             viewModel.exercises[i].completed ?
                             Label(viewModel.exercises[i].name, systemImage: "checkmark.circle.fill") :
