@@ -54,9 +54,6 @@ final class SelectedWorkoutViewModel: ObservableObject {
                 self.activeEnergy = newVal
             }
             .store(in: &cancellable)
-        
-        WorkoutService.shared.startWorkout()
-        startDate = WorkoutService.shared.getBuilderStart()
     }
     
     func requestDetails(workoutIndex: Int) {
@@ -68,6 +65,9 @@ final class SelectedWorkoutViewModel: ObservableObject {
                 self.restInSeconds = workout.restInSeconds
                 self.exercises = workout.exercises
                 self.isLoading = false
+                
+                WorkoutService.shared.startWorkout()
+                self.startDate = WorkoutService.shared.getBuilderStart()
             }
         }
     }
@@ -101,8 +101,13 @@ final class SelectedWorkoutViewModel: ObservableObject {
         }
     }
     
-    func onEndPressed() {
+    func onEndPressed(workoutIndex: Int) {
+        isLoading = true
         WorkoutService.shared.endWorkout()
-        // TODO: Pop this screen
+        
+        PhoneService.shared.requestSaveWorkout(
+            index: workoutIndex,
+            workout: WorkoutItem(name: name, restInSeconds: restInSeconds, exercises: exercises)
+        )
     }
 }

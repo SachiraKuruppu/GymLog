@@ -66,6 +66,23 @@ final class PhoneService: NSObject, WCSessionDelegate, ObservableObject {
         }
     }
     
+    func requestSaveWorkout(index: Int, workout: WorkoutItem) {
+        WCSession.default.sendMessage([
+            "request": "save",
+            "index": index,
+            "workout": workout.encode()
+        ]) { receivedData in
+            guard let status = receivedData["status"] as? Bool else {
+                print("Cannot determine whether workout was saved or not")
+                return
+            }
+            
+            if status == false {
+                fatalError("Could not save the workout")
+            }
+        }
+    }
+    
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         setStatus()
     }

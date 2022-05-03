@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SelectedWorkoutView: View {
-    var workoutIndex: Int?
+    var workoutIndex: Int
     
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: SelectedWorkoutViewModel = SelectedWorkoutViewModel()
     @FocusState private var weightFocused: Bool
     @FocusState private var repsFocused: Bool
@@ -38,7 +39,8 @@ struct SelectedWorkoutView: View {
                     
                     HStack {
                         Button {
-                            viewModel.onEndPressed()
+                            viewModel.onEndPressed(workoutIndex: workoutIndex)
+                            dismiss()
                         } label: {
                             Image(systemName: "xmark")
                         }
@@ -125,11 +127,10 @@ struct SelectedWorkoutView: View {
             }
         }
         .onAppear {
-            guard let index = workoutIndex else {
+            guard workoutIndex >= 0 else {
                 return
             }
-            
-            viewModel.requestDetails(workoutIndex: index)
+            viewModel.requestDetails(workoutIndex: workoutIndex)
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -137,7 +138,7 @@ struct SelectedWorkoutView: View {
 
 struct SelectedWorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedWorkoutView()
+        SelectedWorkoutView(workoutIndex: -1)
     }
 }
 
