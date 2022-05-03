@@ -120,8 +120,11 @@ struct SelectedWorkoutView: View {
                     Text("Exercise")
                 }
             }
-            .sheet(isPresented: $viewModel.showRestTimer) {
-                RestTimeView(restTimeInSeconds: viewModel.restInSeconds)
+            
+            if viewModel.showRestTimer {
+                RestTimeView(restTimeInSeconds: viewModel.restInSeconds) {
+                    viewModel.showRestTimer = false
+                }
             }
             
             if viewModel.isLoading {

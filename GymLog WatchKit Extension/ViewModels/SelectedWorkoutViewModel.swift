@@ -63,7 +63,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
         PhoneService.shared.requestWorkout(index: workoutIndex) { workout in
             DispatchQueue.main.async {
                 self.name = workout.name
-                self.restInSeconds = 10 //workout.restInSeconds
+                self.restInSeconds = workout.restInSeconds
                 self.exercises = workout.exercises
                 self.isLoading = false
                 

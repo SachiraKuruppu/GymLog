@@ -8,45 +8,59 @@
 import SwiftUI
 
 struct RestTimeView: View {
-    var restTimeInSeconds: Int
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    @Environment(\.dismiss) private var dismiss
-    @State private var timeRemaining: Int = 10
-    @State private var normalizedTimeRemaining: CGFloat = 1
+    @State var restTimeInSeconds: Int
+    @State var startDate = Date()
+    let completion: () -> Void
     
     var body: some View {
         
-        ZStack{
-            Text("\(timeRemaining)")
-                .foregroundColor(Color.yellow)
-                .font(.title)
-                .onReceive(timer) { _ in
-                    if timeRemaining > 0 {
-                        timeRemaining -= 1
-                    }
-                    else if timeRemaining == 0 {
-                        dismiss()
-                    }
+        TimelineView(
+            ElapsedTimerSchedule(from: startDate)
+        ) { context in
+            ZStack{
+                let elapsedTime = Date().timeIntervalSince(startDate)
+                let normalizedElapsedTime = CGFloat(elapsedTime) / CGFloat(restTimeInSeconds)
+                
+                if normalizedElapsedTime >= 1 {
+                    let _ = completion()
                 }
-                .onAppear { timeRemaining = restTimeInSeconds }
-            
-            Circle()
-                .trim(from: 0, to: normalizedTimeRemaining)
-                .rotation(Angle(degrees: -90))
-                .stroke(Color.yellow, lineWidth: 10)
-                .frame(width: 150, height: 150, alignment: .center)
-                .onReceive(timer) { _ in
-                    normalizedTimeRemaining = CGFloat(timeRemaining) / CGFloat(restTimeInSeconds)
-                }
+                
+                Text(elapsedTime.formatted(.number.precision(.fractionLength(0))))
+                    .foregroundColor(Color.yellow)
+                    .font(.title)
+                
+                Circle()
+                    .trim(from: 0, to: normalizedElapsedTime)
+                    .rotation(Angle(degrees: -90))
+                    .stroke(Color.yellow, lineWidth: 10)
+                    .frame(width: 150, height: 150, alignment: .center)
+            }
+            .frame(width: 200, height: 200, alignment: .center)
+            .background(Color.black)
         }
-        .frame(width: 200, height: 200, alignment: .center)
-        .background(Color.black)
     }
 }
 
 struct RestTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        RestTimeView(restTimeInSeconds: 120)
+        RestTimeView(restTimeInSeconds: 120){}
+    }
+}
+
+private struct ElapsedTimerSchedule: TimelineSchedule {
+    var startDate: Date
+    
+    init(from startDate: Date) {
+        self.startDate = startDate
+    }
+    
+    func entries(from startDate: Date, mode: TimelineScheduleMode) -> PeriodicTimelineSchedule.Entries {
+        PeriodicTimelineSchedule(
+            from: self.startDate,
+            by: (mode == .lowFrequency ? 1.0 : 1.0 / 30.0)
+        ).entries(
+            from: startDate,
+            mode: mode
+        )
     }
 }
