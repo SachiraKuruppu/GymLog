@@ -38,6 +38,7 @@
 		520961BB281F269600F310DB /* Workouts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961AC281F265C00F310DB /* Workouts+CoreDataClass.swift */; };
 		520961BC281F269600F310DB /* Workouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961AD281F265C00F310DB /* Workouts+CoreDataProperties.swift */; };
 		520961BD281F269600F310DB /* Exercises+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */; };
+		5255E1A72821034500ACD330 /* RestTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5255E1A62821034500ACD330 /* RestTimeView.swift */; };
 		52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */; };
 		52E6C5FF281FCEBE00DFED1C /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */; };
 		52E6C603281FDD3300DFED1C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E6C602281FDD3300DFED1C /* HealthKit.framework */; };
@@ -118,6 +119,7 @@
 		520961AF281F265C00F310DB /* Weights+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Weights+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		520961B0281F265C00F310DB /* Exercises+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataClass.swift"; sourceTree = "<group>"; };
 		520961B1281F265C00F310DB /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5255E1A62821034500ACD330 /* RestTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimeView.swift; sourceTree = "<group>"; };
 		52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSubView.swift; sourceTree = "<group>"; };
 		52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		52E6C600281FDD3300DFED1C /* GymLog WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GymLog WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				52E6C5FB281FA47000DFED1C /* SubViews */,
 				5209619F281DF36500F310DB /* WorkoutsView.swift */,
 				520961A6281E1C8A00F310DB /* SelectedWorkoutView.swift */,
+				5255E1A62821034500ACD330 /* RestTimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				52E6C5FF281FCEBE00DFED1C /* WorkoutService.swift in Sources */,
 				520961A3281DF4AE00F310DB /* PhoneService.swift in Sources */,
 				5209615D281DD14100F310DB /* ComplicationController.swift in Sources */,
+				5255E1A72821034500ACD330 /* RestTimeView.swift in Sources */,
 				5209619E281DF1F200F310DB /* WorkoutsViewModel.swift in Sources */,
 				52096196281DD81100F310DB /* Types.swift in Sources */,
 			);

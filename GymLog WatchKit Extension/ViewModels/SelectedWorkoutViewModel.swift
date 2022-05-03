@@ -25,6 +25,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     @Published var name: String = "Fake Workout"
     @Published var restInSeconds: Int = 60
     @Published var exercises: [ExerciseItem] = []
+    @Published var showRestTimer: Bool = false
     
     @Published var heartRate: Double = 0
     @Published var activeEnergy: Double = 0
@@ -62,7 +63,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
         PhoneService.shared.requestWorkout(index: workoutIndex) { workout in
             DispatchQueue.main.async {
                 self.name = workout.name
-                self.restInSeconds = workout.restInSeconds
+                self.restInSeconds = 10 //workout.restInSeconds
                 self.exercises = workout.exercises
                 self.isLoading = false
                 
@@ -85,6 +86,10 @@ final class SelectedWorkoutViewModel: ObservableObject {
         
         if (selectedExerciseIndx + 1) < exercises.count {
             selectExercise(index: selectedExerciseIndx + 1)
+            showRestTimer = true
+        }
+        else {
+            selectedTab = .WORKOUT_VIEW
         }
     }
     
