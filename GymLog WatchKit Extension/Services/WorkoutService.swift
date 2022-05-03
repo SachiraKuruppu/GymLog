@@ -13,7 +13,7 @@ final class WorkoutService: NSObject, HKWorkoutSessionDelegate, HKLiveWorkoutBui
     
     private let healthStore = HKHealthStore()
     private var session: HKWorkoutSession?
-    var builder: HKLiveWorkoutBuilder?
+    private var builder: HKLiveWorkoutBuilder?
     
     @Published var isRunning = false
     @Published var averageHeartRate: Double = 0
@@ -44,9 +44,6 @@ final class WorkoutService: NSObject, HKWorkoutSessionDelegate, HKLiveWorkoutBui
         let startDate = Date()
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
-            if !success {
-                fatalError("Unable to begin data collection")
-            }
         }
     }
     
@@ -104,6 +101,14 @@ final class WorkoutService: NSObject, HKWorkoutSessionDelegate, HKLiveWorkoutBui
         }
         
         session.end()
+    }
+    
+    func getElapsedTime() -> Double {
+        return builder?.elapsedTime ?? 0
+    }
+    
+    func getBuilderStart() -> Date {
+        return builder?.startDate ?? Date()
     }
     
     func workoutBuilder(_ workoutBuilder: HKLiveWorkoutBuilder, didCollectDataOf collectedTypes: Set<HKSampleType>) {

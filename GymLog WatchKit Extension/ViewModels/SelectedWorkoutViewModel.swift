@@ -16,6 +16,8 @@ final class SelectedWorkoutViewModel: ObservableObject {
         case EXERCISE_VIEW
     }
     
+    var startDate: Date = Date()
+    
     @Published var isLoading: Bool = false
     @Published var selectedTab: Tab = Tab.WORKOUT_VIEW
     @Published var isRunning = false
@@ -24,7 +26,6 @@ final class SelectedWorkoutViewModel: ObservableObject {
     @Published var restInSeconds: Int = 60
     @Published var exercises: [ExerciseItem] = []
     
-    @Published var elapsedTime: Double = 0
     @Published var heartRate: Double = 0
     @Published var activeEnergy: Double = 0
     
@@ -55,6 +56,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
             .store(in: &cancellable)
         
         WorkoutService.shared.startWorkout()
+        startDate = WorkoutService.shared.getBuilderStart()
     }
     
     func requestDetails(workoutIndex: Int) {
@@ -84,6 +86,10 @@ final class SelectedWorkoutViewModel: ObservableObject {
         if (selectedExerciseIndx + 1) < exercises.count {
             selectExercise(index: selectedExerciseIndx + 1)
         }
+    }
+    
+    func getElapsedTime() -> Double {
+        return WorkoutService.shared.getElapsedTime()
     }
     
     func onPausePressed() {

@@ -59,11 +59,15 @@ struct SelectedWorkoutView: View {
                 
                 // Tab 2: Selected exercise view
                 ScrollView {
-                    TimerSubView(
-                            elapsedTime: WorkoutService.shared.builder?.elapsedTime ?? 0,
-                            showSubseconds: true
+                    TimelineView(
+                        ElapsedTimerSchedule(from: viewModel.startDate)
+                    ) { context in
+                        TimerSubView(
+                            elapsedTime: viewModel.getElapsedTime(),
+                            showSubseconds: context.cadence == .live
                         )
                         .font(.title3)
+                    }
                     HStack {
                         Text(
                             Measurement(value: viewModel.activeEnergy, unit: UnitEnergy.kilocalories)
@@ -134,5 +138,23 @@ struct SelectedWorkoutView: View {
 struct SelectedWorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         SelectedWorkoutView()
+    }
+}
+
+private struct ElapsedTimerSchedule: TimelineSchedule {
+    var startDate: Date
+    
+    init(from startDate: Date) {
+        self.startDate = startDate
+    }
+    
+    func entries(from startDate: Date, mode: TimelineScheduleMode) -> PeriodicTimelineSchedule.Entries {
+        PeriodicTimelineSchedule(
+            from: self.startDate,
+            by: (mode == .lowFrequency ? 1.0 : 1.0 / 30.0)
+        ).entries(
+            from: startDate,
+            mode: mode
+        )
     }
 }
