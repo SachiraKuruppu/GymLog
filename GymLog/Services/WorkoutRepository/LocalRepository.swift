@@ -24,6 +24,10 @@ final class FakeRepository: WorkoutRepositoryProtocol {
         return
     }
     
+    func updateWorkout(workout: WorkoutItem) {
+        return
+    }
+    
     func save() {
         return
     }
@@ -34,6 +38,8 @@ final class LocalRepository: WorkoutRepositoryProtocol {
     
     init() {
         container.loadPersistentStores { description, error in
+            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
             if let error = error {
                 fatalError("Core data failed to load: \(error.localizedDescription)")
             }
@@ -67,7 +73,14 @@ final class LocalRepository: WorkoutRepositoryProtocol {
         }
         
         for e in exercises.array as! [Exercises] {
-            exerciseItems.append(ExerciseItem(name: e.ex_name ?? "", reps: Int(e.reps), weight: e.weight))
+            guard
+                let ex_id = e.ex_id,
+                let ex_name = e.ex_name
+            else {
+                continue
+            }
+            
+            exerciseItems.append(ExerciseItem(id: ex_id.uuidString, name: ex_name, reps: Int(e.reps), weight: e.weight))
         }
         
         return exerciseItems
@@ -80,10 +93,15 @@ final class LocalRepository: WorkoutRepositoryProtocol {
         
         for exercise in workout.exercises {
             let e = Exercises(context: container.viewContext)
+            e.ex_id = UUID(uuidString: exercise.id)
             e.ex_name = exercise.name
             e.reps = Int16(exercise.reps)
             w.addToExercises(e)
         }
+    }
+    
+    func updateWorkout(workout: WorkoutItem) {
+        self.addWorkout(workout: workout)
     }
     
     func removeWorkout(workoutName: String, completion: () -> Void) {

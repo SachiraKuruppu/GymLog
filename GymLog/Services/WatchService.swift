@@ -50,6 +50,20 @@ final class WatchService: NSObject, WCSessionDelegate {
                 return
             }
             replyHandler(["workout": model.workouts[index].encode()]);
+            
+        case "save":
+            guard
+                let index = message["index"] as? Int,
+                let encodedWorkout = message["workout"] as? [String: Any]
+            else {
+                print("Did not get the index and the encoded workout with the request")
+                replyHandler(["status": false])
+                return
+            }
+            
+            let workout = WorkoutItem.decode(encodedWorkout: encodedWorkout)
+            model.update(index: index, newWorkoutItem: workout)
+            replyHandler(["status": true])
         
         default:
             print("Unknown request: " + request)

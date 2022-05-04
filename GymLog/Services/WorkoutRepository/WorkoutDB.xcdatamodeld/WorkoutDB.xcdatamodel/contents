@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Exercises" representedClassName="Exercises" syncable="YES">
+        <attribute name="ex_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="ex_name" optional="YES" attributeType="String"/>
         <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="weights" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Weights" inverseName="exercise" inverseEntity="Weights"/>
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workouts" inverseName="exercises" inverseEntity="Workouts"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="ex_id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Weights" representedClassName="Weights" syncable="YES">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -23,7 +29,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Exercises" positionX="40.046875" positionY="-46.01953125" width="128" height="104"/>
+        <element name="Exercises" positionX="40.046875" positionY="-46.01953125" width="128" height="119"/>
         <element name="Weights" positionX="432.5390625" positionY="-46.2109375" width="155.58984375" height="74"/>
         <element name="Workouts" positionX="-149.57421875" positionY="-47.3125" width="100.78515625" height="74"/>
     </elements>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5205142C282271B900D64AFE /* SelectorSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5205142B282271B900D64AFE /* SelectorSubView.swift */; };
 		5209613E281DD13F00F310DB /* GymLogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209613D281DD13F00F310DB /* GymLogApp.swift */; };
 		52096142281DD14000F310DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52096141281DD14000F310DB /* Assets.xcassets */; };
 		52096145281DD14000F310DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52096144281DD14000F310DB /* Preview Assets.xcassets */; };
@@ -87,6 +88,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5205142B282271B900D64AFE /* SelectorSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorSubView.swift; sourceTree = "<group>"; };
 		5209613A281DD13F00F310DB /* GymLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5209613D281DD13F00F310DB /* GymLogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymLogApp.swift; sourceTree = "<group>"; };
 		52096141281DD14000F310DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */,
+				5205142B282271B900D64AFE /* SelectorSubView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			files = (
 				52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */,
 				520961A7281E1C8A00F310DB /* SelectedWorkoutView.swift in Sources */,
+				5205142C282271B900D64AFE /* SelectorSubView.swift in Sources */,
 				520961AB281E1CAF00F310DB /* SelectedWorkoutViewModel.swift in Sources */,
 				5209615B281DD14100F310DB /* GymLogApp.swift in Sources */,
 				520961A0281DF36500F310DB /* WorkoutsView.swift in Sources */,

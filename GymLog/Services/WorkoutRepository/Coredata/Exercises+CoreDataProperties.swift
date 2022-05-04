@@ -1,8 +1,8 @@
 //
 //  Exercises+CoreDataProperties.swift
-//  GymLog WatchKit Extension
+//  GymLog
 //
-//  Created by Sachira Kuruppu on 2/05/22.
+//  Created by Sachira Kuruppu on 4/05/22.
 //
 //
 
@@ -19,6 +19,7 @@ extension Exercises {
     @NSManaged public var ex_name: String?
     @NSManaged public var reps: Int16
     @NSManaged public var weight: Float
+    @NSManaged public var ex_id: UUID?
     @NSManaged public var weights: NSOrderedSet?
     @NSManaged public var workout: Workouts?
 

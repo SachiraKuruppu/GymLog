@@ -1,8 +1,8 @@
 //
 //  Weights+CoreDataProperties.swift
-//  GymLog WatchKit Extension
+//  GymLog
 //
-//  Created by Sachira Kuruppu on 2/05/22.
+//  Created by Sachira Kuruppu on 4/05/22.
 //
 //
 

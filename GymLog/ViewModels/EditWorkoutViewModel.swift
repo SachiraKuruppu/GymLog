@@ -8,6 +8,7 @@
 import Foundation
 
 final class EditWorkoutViewModel: ObservableObject {
+    @Published var id: String = UUID().uuidString
     @Published var name: String = ""
     @Published var restInSeconds: String = "0"
     @Published var exercises: [ExerciseItem] = []
@@ -22,6 +23,7 @@ final class EditWorkoutViewModel: ObservableObject {
     
     func onAppear() {
         if let index = self.index, let model = self.model {
+            id = model.workouts[index].id
             name = model.workouts[index].name
             restInSeconds = "\(model.workouts[index].restInSeconds)"
             exercises = model.workouts[index].exercises
@@ -44,6 +46,6 @@ final class EditWorkoutViewModel: ObservableObject {
             return
         }
         
-        exercises.append(ExerciseItem(name: name, reps: reps, weight: 0))
+        exercises.append(ExerciseItem(id: UUID().uuidString, name: name, reps: reps, weight: 0))
     }
 }

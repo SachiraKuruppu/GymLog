@@ -10,7 +10,8 @@ import Foundation
 final class WorkoutModel: ObservableObject {
     let repository: WorkoutRepositoryProtocol
     
-    @Published var workouts: [WorkoutItem] = []
+    //@Published
+    var workouts: [WorkoutItem] = []
     
     init(repository: WorkoutRepositoryProtocol = LocalRepository()) {
         self.repository = repository
@@ -34,7 +35,9 @@ final class WorkoutModel: ObservableObject {
     }
     
     func update(index: Int, newWorkoutItem: WorkoutItem) {
-        
+        self.workouts[index] = newWorkoutItem
+        self.repository.updateWorkout(workout: newWorkoutItem)
+        self.save()
     }
     
     func moveWorkout(at: Int, to: Int) {

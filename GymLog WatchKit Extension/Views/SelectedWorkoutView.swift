@@ -95,18 +95,19 @@ struct SelectedWorkoutView: View {
                             .font(.body.weight(.bold))
                     }
                     HStack {
+                        
                         Text("\(viewModel.weight, specifier: "%.2f") kg")
                             .frame(width: 80, height: 30, alignment: .center)
                             .focusable()
+                            //.digitalCrownRotation($viewModel.weight, from: 0, through: .infinity, by: 1.25)
                             .focused($weightFocused)
-                            .digitalCrownRotation($viewModel.weight, from: 0, through: .infinity, by: 1.25)
                             .padding()
                             .border(weightFocused ? .primary : .secondary, width: 2)
                         Text("\(viewModel.reps)")
                             .frame(width: 80, height: 30, alignment: .center)
                             .focusable()
+                            //.digitalCrownRotation($viewModel.reps, from: 0, through: .infinity, by: 1)
                             .focused($repsFocused)
-                            .digitalCrownRotation($viewModel.weight, from: 0, through: .infinity, by: 1)
                             .padding()
                             .border(repsFocused ? .primary : .secondary, width: 2)
                     }

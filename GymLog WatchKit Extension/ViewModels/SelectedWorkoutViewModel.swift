@@ -32,7 +32,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     
     @Published var selectedExerciseIndx: Int = 0
     @Published var weight: Float = 0
-    @Published var reps: Int = 1
+    @Published var reps: Float = 1
     
     init() {
         WorkoutService.shared.$isRunning
@@ -75,12 +75,12 @@ final class SelectedWorkoutViewModel: ObservableObject {
     
     func selectExercise(index: Int) {
         selectedExerciseIndx = index
-        reps = exercises[selectedExerciseIndx].reps
+        reps = Float(exercises[selectedExerciseIndx].reps)
         weight = exercises[selectedExerciseIndx].weight
     }
     
     func markDone() {
-        exercises[selectedExerciseIndx].reps = reps
+        exercises[selectedExerciseIndx].reps = 2//reps
         exercises[selectedExerciseIndx].weight = weight
         exercises[selectedExerciseIndx].completed = true
         
