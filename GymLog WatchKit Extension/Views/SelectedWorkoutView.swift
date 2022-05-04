@@ -96,23 +96,19 @@ struct SelectedWorkoutView: View {
                     }
                     HStack {
                         
-                        Text("\(viewModel.weight, specifier: "%.2f") kg")
-                            .frame(width: 80, height: 30, alignment: .center)
-                            .focusable()
-                            //.digitalCrownRotation($viewModel.weight, from: 0, through: .infinity, by: 1.25)
-                            .focused($weightFocused)
-                            .padding()
-                            .border(weightFocused ? .primary : .secondary, width: 2)
-                        Text("\(viewModel.reps)")
-                            .frame(width: 80, height: 30, alignment: .center)
-                            .focusable()
-                            //.digitalCrownRotation($viewModel.reps, from: 0, through: .infinity, by: 1)
-                            .focused($repsFocused)
-                            .padding()
-                            .border(repsFocused ? .primary : .secondary, width: 2)
+                        SelectorSubView(from: 0, to: 100, by: 1.25, label: " kg") { weight in
+                            viewModel.weight = weight
+                        }
+                        .frame(width: 80, height: 50, alignment: .center)
+                        SelectorSubView(from: 0, to: 20, by: 1, label: "") { reps in
+                            viewModel.reps = reps
+                        }
+                        .frame(width: 80, height: 50, alignment: .center)
                     }
-                    Button("Done") {
+                    Button {
                         viewModel.markDone()
+                    } label: {
+                        Image(systemName: "forward.frame")
                     }
                     .tint(Color.blue)
                 }

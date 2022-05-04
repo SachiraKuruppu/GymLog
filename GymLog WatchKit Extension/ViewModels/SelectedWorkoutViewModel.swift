@@ -80,7 +80,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     }
     
     func markDone() {
-        exercises[selectedExerciseIndx].reps = 2//reps
+        exercises[selectedExerciseIndx].reps = Int(reps)
         exercises[selectedExerciseIndx].weight = weight
         exercises[selectedExerciseIndx].completed = true
         
