@@ -26,11 +26,19 @@ struct WorkoutsView: View {
                     }
                 }
                 
-                NavigationLink(destination: EditWorkoutView()){
-                    Text("Add New Workout")
+                HStack {
+                    NavigationLink(destination: DataView()){
+                        Text("Weights")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    
+                    NavigationLink(destination: EditWorkoutView()){
+                        Text("Add New Workout")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
             }
             .onAppear{
                 viewModel.setup(model: model)

@@ -22,6 +22,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     @Published var selectedTab: Tab = Tab.WORKOUT_VIEW
     @Published var isRunning = false
     
+    @Published var id: String = ""
     @Published var name: String = "Fake Workout"
     @Published var restInSeconds: Int = 60
     @Published var exercises: [ExerciseItem] = []
@@ -62,6 +63,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
         
         PhoneService.shared.requestWorkout(index: workoutIndex) { workout in
             DispatchQueue.main.async {
+                self.id = workout.id
                 self.name = workout.name
                 self.restInSeconds = workout.restInSeconds
                 self.exercises = workout.exercises
@@ -112,7 +114,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
         
         PhoneService.shared.requestSaveWorkout(
             index: workoutIndex,
-            workout: WorkoutItem(name: name, restInSeconds: restInSeconds, exercises: exercises)
+            workout: WorkoutItem(id: id, name: name, restInSeconds: restInSeconds, exercises: exercises)
         )
     }
 }

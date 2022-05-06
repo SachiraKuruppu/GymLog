@@ -2,7 +2,7 @@
 //  Workouts+CoreDataProperties.swift
 //  GymLog
 //
-//  Created by Sachira Kuruppu on 4/05/22.
+//  Created by Sachira Kuruppu on 7/05/22.
 //
 //
 
@@ -16,6 +16,7 @@ extension Workouts {
         return NSFetchRequest<Workouts>(entityName: "Workouts")
     }
 
+    @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var rest_time_sec: NSDecimalNumber?
     @NSManaged public var exercises: NSOrderedSet?

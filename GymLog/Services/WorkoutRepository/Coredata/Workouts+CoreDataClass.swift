@@ -2,7 +2,7 @@
 //  Workouts+CoreDataClass.swift
 //  GymLog
 //
-//  Created by Sachira Kuruppu on 4/05/22.
+//  Created by Sachira Kuruppu on 7/05/22.
 //
 //
 

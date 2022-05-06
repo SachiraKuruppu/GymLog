@@ -96,13 +96,9 @@ struct SelectedWorkoutView: View {
                     }
                     HStack {
                         
-                        SelectorSubView(from: 0, to: 100, by: 1.25, label: " kg") { weight in
-                            viewModel.weight = weight
-                        }
+                        SelectorSubView(from: 0, to: 100, by: 1.25, label: " kg", selection: $viewModel.weight)
                         .frame(width: 80, height: 50, alignment: .center)
-                        SelectorSubView(from: 0, to: 20, by: 1, label: "") { reps in
-                            viewModel.reps = reps
-                        }
+                        SelectorSubView(from: 0, to: 20, by: 1, label: "", selection: $viewModel.reps)
                         .frame(width: 80, height: 50, alignment: .center)
                     }
                     Button {

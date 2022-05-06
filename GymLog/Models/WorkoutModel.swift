@@ -29,6 +29,11 @@ final class WorkoutModel: ObservableObject {
         completion(self.workouts)
     }
     
+    func getAllExerciseNames(completion: ([String]) -> Void) {
+        let exerciseNames = self.repository.fetchAllExerciseNames()
+        completion(exerciseNames)
+    }
+    
     func add(newWorkout: WorkoutItem) {
         self.repository.addWorkout(workout: newWorkout)
         self.workouts.append(newWorkout)
@@ -47,5 +52,40 @@ final class WorkoutModel: ObservableObject {
     
     func renameWorkout(at: Int, toName: String) {
         self.workouts[at].name = toName
+    }
+    
+    func getAllWeights(for exerciseName: String, completion: ([WeightItem]) -> Void) {
+        let weights = self.repository.fetchAllWeights(for: exerciseName)
+        completion(weights)
+    }
+    
+    func recordWeights(for workout: WorkoutItem) {
+        let datetime = Date()
+        
+        let minWeightsOfExercises = workout.exercises.reduce(into: [String: WeightItem]()) { dict, exercise in
+            guard exercise.completed == true else {
+                return
+            }
+            
+            guard let existingWeightItem = dict[exercise.name] else {
+                dict[exercise.name] = WeightItem(
+                    id: UUID().uuidString,
+                    exerciseName: exercise.name,
+                    datetime: datetime,
+                    weight: exercise.weight
+                )
+                return
+            }
+            
+            if existingWeightItem.weight > exercise.weight {
+                dict[exercise.name]?.weight = exercise.weight
+            }
+        }
+        
+        for (_, weightItem) in minWeightsOfExercises {
+            self.repository.addWeight(weightItem)
+        }
+        
+        self.save()
     }
 }

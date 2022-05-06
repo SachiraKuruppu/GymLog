@@ -63,6 +63,7 @@ final class WatchService: NSObject, WCSessionDelegate {
             
             let workout = WorkoutItem.decode(encodedWorkout: encodedWorkout)
             model.update(index: index, newWorkoutItem: workout)
+            model.recordWeights(for: workout)
             replyHandler(["status": true])
         
         default:

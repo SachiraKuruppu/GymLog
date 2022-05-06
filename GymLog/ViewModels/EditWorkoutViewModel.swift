@@ -36,7 +36,7 @@ final class EditWorkoutViewModel: ObservableObject {
         }
         
         // Add new workout
-        let w = WorkoutItem(name: name, restInSeconds: restInt, exercises: exercises)
+        let w = WorkoutItem(id: id, name: name, restInSeconds: restInt, exercises: exercises)
         model.add(newWorkout: w)
         model.save()
     }

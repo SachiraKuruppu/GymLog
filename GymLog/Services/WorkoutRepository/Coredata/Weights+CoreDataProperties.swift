@@ -2,7 +2,7 @@
 //  Weights+CoreDataProperties.swift
 //  GymLog
 //
-//  Created by Sachira Kuruppu on 4/05/22.
+//  Created by Sachira Kuruppu on 7/05/22.
 //
 //
 
@@ -16,9 +16,9 @@ extension Weights {
         return NSFetchRequest<Weights>(entityName: "Weights")
     }
 
-    @NSManaged public var timestamp: Date?
-    @NSManaged public var weight: NSDecimalNumber?
-    @NSManaged public var exercise: Exercises?
+    @NSManaged public var ex_name: String?
+    @NSManaged public var datetime: Date?
+    @NSManaged public var weight: Float
 
 }
 

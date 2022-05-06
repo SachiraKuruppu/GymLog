@@ -7,6 +7,14 @@
 
 import Foundation
 
+struct WeightItem: Identifiable {
+    let id: String
+    
+    var exerciseName: String
+    var datetime: Date
+    var weight: Float
+}
+
 struct ExerciseItem: Identifiable {
     let id: String
     
@@ -21,7 +29,8 @@ struct ExerciseItem: Identifiable {
             "id": id,
             "name": name,
             "reps": reps,
-            "weight": weight
+            "weight": weight,
+            "completed": completed
         ]
     }
     
@@ -30,19 +39,18 @@ struct ExerciseItem: Identifiable {
             let id = encodedExercise["id"] as? String,
             let name = encodedExercise["name"] as? String,
             let reps = encodedExercise["reps"] as? Int,
-            let weight = encodedExercise["weight"] as? Float
+            let weight = encodedExercise["weight"] as? Float,
+            let completed = encodedExercise["completed"] as? Bool
         else {
             fatalError("Unable to decode exercise")
         }
         
-        return ExerciseItem(id: id, name: name, reps: reps, weight: weight)
+        return ExerciseItem(id: id, name: name, reps: reps, weight: weight, completed: completed)
     }
 }
 
 struct WorkoutItem: Identifiable {
-    var id: String {
-        return name
-    }
+    let id: String
     
     var name: String
     var restInSeconds: Int
@@ -50,6 +58,7 @@ struct WorkoutItem: Identifiable {
     
     func encode() -> [String: Any] {
         return [
+            "id": id,
             "name": name,
             "restInSeconds": restInSeconds,
             "exercises": exercises.map { $0.encode() }
@@ -58,6 +67,7 @@ struct WorkoutItem: Identifiable {
     
     static func decode(encodedWorkout: [String: Any]) -> WorkoutItem {
         guard
+            let id = encodedWorkout["id"] as? String,
             let name = encodedWorkout["name"] as? String,
             let restInSeconds = encodedWorkout["restInSeconds"] as? Int,
             let encodedExercises = encodedWorkout["exercises"] as? [[String: Any]]
@@ -69,7 +79,7 @@ struct WorkoutItem: Identifiable {
             ExerciseItem.decode(encodedExercise: encodedEx)
         }
         
-        return WorkoutItem(name: name, restInSeconds: restInSeconds, exercises: exercises)
+        return WorkoutItem(id: id, name: name, restInSeconds: restInSeconds, exercises: exercises)
     }
 }
 
@@ -78,7 +88,10 @@ protocol WorkoutRepositoryProtocol {
     func addWorkout(workout: WorkoutItem) -> Void
     func updateWorkout(workout: WorkoutItem) -> Void
     func save() -> Void
+    
+    func fetchAllExerciseNames() -> [String]
+    func fetchAllWeights(for exerciseName: String) -> [WeightItem]
+    func addWeight(_ weight: WeightItem) -> Void
 //    func removeWorkout(workoutName: String) -> Void
-//    func addExercise(workoutName: String, exercise: ExerciseItem) -> Void
 //    func addWeight(workoutName: String, exerciseName: String, weight: Float) -> Void
 }

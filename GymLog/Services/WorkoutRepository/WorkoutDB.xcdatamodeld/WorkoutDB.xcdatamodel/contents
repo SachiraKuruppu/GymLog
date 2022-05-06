@@ -5,7 +5,6 @@
         <attribute name="ex_name" optional="YES" attributeType="String"/>
         <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="weights" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Weights" inverseName="exercise" inverseEntity="Weights"/>
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workouts" inverseName="exercises" inverseEntity="Workouts"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -14,23 +13,30 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Weights" representedClassName="Weights" syncable="YES">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="weight" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercises" inverseName="weights" inverseEntity="Exercises"/>
+        <attribute name="datetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ex_name" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="ex_name"/>
+                <constraint value="datetime"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Workouts" representedClassName="Workouts" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="rest_time_sec" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Exercises" inverseName="workout" inverseEntity="Exercises"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="name"/>
+                <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Exercises" positionX="40.046875" positionY="-46.01953125" width="128" height="119"/>
-        <element name="Weights" positionX="432.5390625" positionY="-46.2109375" width="155.58984375" height="74"/>
-        <element name="Workouts" positionX="-149.57421875" positionY="-47.3125" width="100.78515625" height="74"/>
+        <element name="Exercises" positionX="40.046875" positionY="-46.01953125" width="128" height="104"/>
+        <element name="Workouts" positionX="-149.57421875" positionY="-47.3125" width="100.78515625" height="89"/>
+        <element name="Weights" positionX="-45" positionY="18" width="128" height="74"/>
     </elements>
 </model>
