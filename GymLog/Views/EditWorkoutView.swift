@@ -23,6 +23,8 @@ struct EditWorkoutView: View {
     @StateObject private var viewModel = EditWorkoutViewModel()
     @State private var newExerciseName = ""
     @State private var newExerciseReps = ""
+    @FocusState private var nameTextFieldFocused: Bool
+    @FocusState private var repsTextFieldFocused: Bool
     
     init(index: Int? = nil) {
         self.index = index
@@ -30,9 +32,11 @@ struct EditWorkoutView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20.0) {
-            Text(title)
-                .font(.largeTitle)
-                .padding()
+            if !nameTextFieldFocused && !repsTextFieldFocused {
+                Text(title)
+                    .font(.largeTitle)
+                    .padding()
+            }
             
             HStack{
                 Text("Workout name: ")
@@ -51,7 +55,9 @@ struct EditWorkoutView: View {
                 }
                 HStack {
                     TextField("Name", text: $newExerciseName)
+                        .focused($nameTextFieldFocused)
                     TextField("Reps", text: $newExerciseReps)
+                        .focused($repsTextFieldFocused)
                 }
                 Button("Add exercise") {
                     viewModel.onAdd(name: newExerciseName, reps: Int(newExerciseReps) ?? 0)
@@ -65,6 +71,7 @@ struct EditWorkoutView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
         .onAppear{
             viewModel.setup(model: model, index: index)

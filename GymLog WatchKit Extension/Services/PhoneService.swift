@@ -51,6 +51,9 @@ final class PhoneService: NSObject, WCSessionDelegate, ObservableObject {
             }
             
             completion(workoutNames)
+        } errorHandler: { e in
+            print("Error occurred when requesting workouts: \(e.localizedDescription)")
+            completion([])
         }
     }
     

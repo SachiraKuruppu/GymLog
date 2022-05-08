@@ -117,6 +117,7 @@ struct SelectedWorkoutView: View {
             if viewModel.showRestTimer {
                 RestTimeView(restTimeInSeconds: viewModel.restInSeconds) {
                     viewModel.showRestTimer = false
+                    WKInterfaceDevice.current().play(.success)
                 }
             }
             

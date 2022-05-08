@@ -26,13 +26,12 @@ struct WorkoutsView: View {
                         }
                     }
                     else {
-                        NavigationLink(destination: SelectedWorkoutView(workoutIndex: 0)) {
-                            Text("No workouts found")
-                        }
+                        Text("No workouts found")
                     }
-                }
-                .refreshable {
-                    viewModel.refreshWorkoutsList()
+                    
+                    Button("Refresh") {
+                        viewModel.refreshWorkoutsList()
+                    }
                 }
             }
             
