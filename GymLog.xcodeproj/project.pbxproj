@@ -45,6 +45,7 @@
 		52E6C5FD281FA4B900DFED1C /* TimerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FC281FA4B900DFED1C /* TimerSubView.swift */; };
 		52E6C5FF281FCEBE00DFED1C /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */; };
 		52E6C603281FDD3300DFED1C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E6C602281FDD3300DFED1C /* HealthKit.framework */; };
+		52EA1CDB282CF98700FF2C0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52EA1CDA282CF98700FF2C0C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		52E6C5FE281FCEBE00DFED1C /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		52E6C600281FDD3300DFED1C /* GymLog WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GymLog WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		52E6C602281FDD3300DFED1C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		52EA1CDA282CF98700FF2C0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 		5209613C281DD13F00F310DB /* GymLog */ = {
 			isa = PBXGroup;
 			children = (
+				52EA1CDA282CF98700FF2C0C /* GoogleService-Info.plist */,
 				52096171281DD25500F310DB /* Services */,
 				52096172281DD26700F310DB /* Models */,
 				52096173281DD28600F310DB /* ViewModels */,
@@ -437,6 +440,7 @@
 			files = (
 				52096145281DD14000F310DB /* Preview Assets.xcassets in Resources */,
 				52096142281DD14000F310DB /* Assets.xcassets in Resources */,
+				52EA1CDB282CF98700FF2C0C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

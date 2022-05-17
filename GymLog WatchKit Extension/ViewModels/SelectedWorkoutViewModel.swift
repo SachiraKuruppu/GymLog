@@ -32,6 +32,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     @Published var activeEnergy: Double = 0
     
     @Published var selectedExerciseIndx: Int = 0
+    @Published var exerciseName = "exercise name"
     @Published var weight: Float = 0
     @Published var reps: Float = 1
     
@@ -77,6 +78,7 @@ final class SelectedWorkoutViewModel: ObservableObject {
     
     func selectExercise(index: Int) {
         selectedExerciseIndx = index
+        exerciseName = exercises[selectedExerciseIndx].name
         reps = Float(exercises[selectedExerciseIndx].reps)
         weight = exercises[selectedExerciseIndx].weight
     }

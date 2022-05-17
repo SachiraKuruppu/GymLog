@@ -21,13 +21,14 @@ struct RestTimeView: View {
                 let elapsedTime = Date().timeIntervalSince(startDate)
                 let normalizedElapsedTime = CGFloat(elapsedTime) / CGFloat(restTimeInSeconds)
                 
-                if normalizedElapsedTime >= 1 {
-                    let _ = completion()
-                }
-                
                 Text(elapsedTime.formatted(.number.precision(.fractionLength(0))))
                     .foregroundColor(Color.yellow)
                     .font(.title)
+                    .onChange(of: elapsedTime) { newVal in
+                        if normalizedElapsedTime >= 1 {
+                            completion()
+                        }
+                    }
                 
                 Circle()
                     .trim(from: 0, to: normalizedElapsedTime)

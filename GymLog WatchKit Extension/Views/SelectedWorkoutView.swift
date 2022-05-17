@@ -60,67 +60,67 @@ struct SelectedWorkoutView: View {
                 .tag(SelectedWorkoutViewModel.Tab.WORKOUT_VIEW)
                 
                 // Tab 2: Selected exercise view
-                ScrollView {
-                    TimelineView(
-                        ElapsedTimerSchedule(from: viewModel.startDate)
-                    ) { context in
-                        TimerSubView(
-                            elapsedTime: viewModel.getElapsedTime(),
-                            showSubseconds: context.cadence == .live
-                        )
-                        .font(.title3)
-                    }
-                    HStack {
-                        Text(
-                            Measurement(value: viewModel.activeEnergy, unit: UnitEnergy.kilocalories)
-                                .formatted(
-                                    .measurement(
-                                        width: .abbreviated,
-                                        usage: .workout
+                ZStack {
+                    VStack {
+                        Button {
+                            viewModel.markDone()
+                        } label: {
+                            Label(viewModel.exerciseName, systemImage: "forward.frame")
+                        }
+                        .tint(Color.blue)
+                        
+                        TimelineView(
+                            ElapsedTimerSchedule(from: viewModel.startDate)
+                        ) { context in
+                            TimerSubView(
+                                elapsedTime: viewModel.getElapsedTime(),
+                                showSubseconds: context.cadence == .live
+                            )
+                        }
+                        HStack {
+                            Text(
+                                Measurement(value: viewModel.activeEnergy, unit: UnitEnergy.kilocalories)
+                                    .formatted(
+                                        .measurement(
+                                            width: .abbreviated,
+                                            usage: .workout
+                                        )
                                     )
                                 )
-                            )
-                            .fontWeight(.bold)
-                            .frame(width: 80, height: 30, alignment: .center)
-                            .padding()
-                            .foregroundColor(.pink)
-                        
-                        Label(
-                                viewModel.heartRate.formatted(.number.precision(.fractionLength(0))),
-                                systemImage: "heart"
-                            )
-                            .frame(width: 80, height: 30, alignment: .center)
-                            .padding()
-                            .foregroundColor(.yellow)
-                            .font(.body.weight(.bold))
+                                .fontWeight(.bold)
+                                .frame(width: 80, alignment: .center)
+                                .padding()
+                                .foregroundColor(.pink)
+                                
+                            Label(
+                                    viewModel.heartRate.formatted(.number.precision(.fractionLength(0))),
+                                    systemImage: "heart"
+                                )
+                                .frame(width: 80, alignment: .center)
+                                .padding()
+                                .foregroundColor(.yellow)
+                                .font(.body.weight(.bold))
+                        }
+                        HStack {
+                            SelectorSubView(from: 0, to: 100, by: 1.25, label: " kg", selection: $viewModel.weight)
+                                .frame(width: 80, height: 50, alignment: .center)
+                            SelectorSubView(from: 0, to: 20, by: 1, label: "", selection: $viewModel.reps)
+                                .frame(width: 80, height: 50, alignment: .center)
+                        }
                     }
-                    HStack {
-                        
-                        SelectorSubView(from: 0, to: 100, by: 1.25, label: " kg", selection: $viewModel.weight)
-                        .frame(width: 80, height: 50, alignment: .center)
-                        SelectorSubView(from: 0, to: 20, by: 1, label: "", selection: $viewModel.reps)
-                        .frame(width: 80, height: 50, alignment: .center)
+                    
+                    if viewModel.showRestTimer {
+                        RestTimeView(restTimeInSeconds: viewModel.restInSeconds) {
+                            viewModel.showRestTimer = false
+                            WKInterfaceDevice.current().play(.success)
+                        }
                     }
-                    Button {
-                        viewModel.markDone()
-                    } label: {
-                        Image(systemName: "forward.frame")
-                    }
-                    .tint(Color.blue)
                 }
                 .tag(SelectedWorkoutViewModel.Tab.EXERCISE_VIEW)
                 .tabItem {
                     Text("Exercise")
                 }
             }
-            
-            if viewModel.showRestTimer {
-                RestTimeView(restTimeInSeconds: viewModel.restInSeconds) {
-                    viewModel.showRestTimer = false
-                    WKInterfaceDevice.current().play(.success)
-                }
-            }
-            
             if viewModel.isLoading {
                 ProgressView()
                     .background(.black)
@@ -133,6 +133,8 @@ struct SelectedWorkoutView: View {
             viewModel.requestDetails(workoutIndex: workoutIndex)
         }
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
